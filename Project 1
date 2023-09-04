@@ -1,0 +1,43 @@
+# This script creates a directory/path and creates files in the path
+
+import os
+
+directory_path = "config"
+file_path1 = os.path.join(directory_path, "random.txt")
+file_path2 = os.path.join(directory_path, "webserver.config")
+files_to_be_created = [file_path1, file_path2]
+
+# checks if the directory exists
+if os.path.exists(directory_path):
+    print("Directory already exists.")
+else:
+    # if it doesn't exist it creates the directory
+    os.makedirs(directory_path)
+
+# creates the files in the directory
+for file_path in files_to_be_created:
+    try:
+        with open(file_path, "w") as file:
+            file.write("This is a test, I am enjoying it")
+            print(file_path + " file created succesfully")
+    except FileExistsError:
+        # if the file already exist it prints this error message
+        print(file_path + " file already exist")
+    except Exception:
+        # if there's an error in creating the file it prints this error message
+        print('error creating ' + file_path + ' file')
+
+
+#try:
+#    with open(file_path2, "x") as file:
+#        file.write("This is a test")
+#        print(file_path2 + " file created succesfully")
+#except FileExistsError:
+#    print(file_path2 + " file already exist")
+#except Exception:
+#    print('error creating ' + file_path2 + ' file')
+
+#file = open(file_path1, "r")
+#file_contents = file.read()  # Call the read method to get the contents
+#print(file_contents)  # Print the contents of the file
+#file.close()  # Close the file when you're done with it
