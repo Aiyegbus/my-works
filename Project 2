@@ -1,0 +1,38 @@
+# Python script to clone a public repository
+
+import subprocess
+import os
+
+# The repository to be cloned
+repository_url = "https://github.com/AmujoDotun/quiz"
+
+# the local directory where I want to clone the repository to
+clone_directory = "quiz_clone"
+
+try:
+    if os.path.exists(clone_directory):
+        print("Directory already exists")
+    else:
+        # clone the repository using the subprocess.run() method
+        # We use the subprocess.run() function to run the git clone command with the specified repository URL and clone directory
+        # The check=True argument ensures that if there's an error during the cloning process, it will raise an error allowing you to handle it
+
+        subprocess.run(["git", "clone", "https://github.com/AmujoDotun/quiz", "quiz_clone"], check = True ) 
+        print(repository_url + " cloned successfully")
+except Exception as e :
+    print("Error cloning repo ",e)
+    exit(1)
+
+# deleting the specified file from the path /src/ in the cloned directory
+file_path1 = os.path.join(clone_directory, "src", "main.js")
+file_path2 = os.path.join(clone_directory, "src", "App.vue")
+files_to_be_deleted = [file_path1, file_path2]
+for path in files_to_be_deleted:
+    try:
+        if os.path.exists(path):
+            os.remove(path)
+            print(path + " removed successfully.")
+        else:
+            print (path + " does not exist. Can't remove " + path)
+    except OSError  as error:
+        print ("Error while removing "+str(error))
